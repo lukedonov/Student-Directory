@@ -21,9 +21,12 @@ def print_header
   puts "--------------"
 end
 
+
 def print_students(students)
   students.each.with_index do |s,index|
-    puts  "#{index+1}. #{s[:name]} (#{s[:cohort]} cohort)"
+    if s[:name].downcase.chr == "s"
+      puts  "#{index+1}. #{s[:name]} (#{s[:cohort]} cohort)"
+    end
   end
 end
 
