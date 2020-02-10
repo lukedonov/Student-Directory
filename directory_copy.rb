@@ -10,7 +10,11 @@ def input_students
     hobby = gets.chomp
     
     while !name.empty? do
-        students << {name: name, cohort: :november, height: height, hobby: hobby}
+        students << {name: name, 
+        cohort: :november, 
+        height: height, 
+        hobby: hobby
+      }
         puts "Now we have #{students.count} students"
         # get another name
         puts "Name:"
@@ -29,8 +33,8 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "--------------"
+  puts "The students of Villains Academy".center(40)
+  puts "--------------".center(40)
 end
 
 def print_s(s)
@@ -44,7 +48,7 @@ ind = 0
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{names.count} great students".center(40)
 end
 
 students = input_students
