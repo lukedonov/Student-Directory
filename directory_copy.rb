@@ -36,7 +36,9 @@ end
 def print_s(s)
 ind = 0
   while ind < s.size
-    puts "#{ind+1}. #{s[ind][:name]} - Height: #{s[ind][:height]} Hobby: #{s[ind][:hobby]} (#{s[ind][:cohort]} cohort.)"
+    puts "#{ind+1}. #{s[ind][:name]} (#{s[ind][:cohort]} cohort)".center(40)
+    puts "Height: #{s[ind][:height]}".center(40)
+    puts "Hobby: #{s[ind][:hobby]}".center(40)
     ind += 1
   end
 end
