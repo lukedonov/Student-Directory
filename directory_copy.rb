@@ -1,26 +1,57 @@
 def input_students
+    #empty array of students to shovel input to. 
     students = []
+    #list of possible cohorts to compare ui to. 
+    cohorts = [
+      "january",
+      "febuary",
+      "march",
+      "april",
+      "june",
+      "july",
+      "august",
+      "september", 
+      "october", 
+      "november", 
+      "december"]
+
     puts "Please input student information:"
     puts "To finish, please hit return twice"
     puts "What is their name?"
     name = gets.chomp
+    puts "Which cohort?"
+    cohort = gets.chomp.to_sym
+   
+    while !cohorts.include? cohort.downcase do 
+      puts "Please enter a valid cohort"
+      cohort = gets.chomp
+    end
+
     puts "What is their height?"
     height = gets.chomp
     puts "What is their hobby?"
     hobby = gets.chomp
     
     while !name.empty? do
-        students << {name: name, 
-        cohort: :november, 
-        height: height, 
-        hobby: hobby
+        students << {
+          name: name, 
+          cohort: cohort, 
+          height: height, 
+          hobby: hobby
       }
+        
         puts "Now we have #{students.count} students"
         # get another name
         puts "Name:"
         name = gets.chomp
         if name.empty?
           break
+        end
+        puts "Cohort:"
+        cohort = gets.chomp
+        while !cohorts.include? cohort.downcase do 
+          puts "Please enter a valid cohort"
+          cohort = gets.chomp
         end
         puts "Height:"
         height = gets.chomp
