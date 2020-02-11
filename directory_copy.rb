@@ -44,20 +44,20 @@ def input_students
         puts "Now we have #{students.count} students"
         # get another name
         puts "Name:"
-        name = gets.chomp
+        name = gets.strip
         if name.empty?
           break
         end
         puts "Cohort:"
-        cohort = gets.chomp
+        cohort = gets.strip
         while !cohorts.include? cohort.downcase do 
           puts "Please enter a valid cohort"
-          cohort = gets.chomp
+          cohort = gets.strip
         end
         puts "Height:"
-        height = gets.chomp
+        height = gets.strip
         puts "Hobby:"
-        hobby = gets.chomp
+        hobby = gets.strip
     end
     return students
     sorted = students.sort_by { |k| k[:cohort] }
