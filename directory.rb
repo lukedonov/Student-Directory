@@ -1,19 +1,18 @@
-def input_students
+@students = []
+
+def instructions
     puts "Please input the name of students"
     puts "To finish, please hit return twice"
-    #create an empty array 
-    students = []
-    # get the first name
+end
+
+def input_students
+    instructions
     name = gets.chomp
     while !name.empty? do
-        #add the student hash to the array
-        students << {name: name, cohort: :november}
-        puts "Now we have #{students.count} students"
-        # get another name
+        @students << {name: name, cohort: :november}
+        puts "Now we have #{@students.count} students"
         name = gets.chomp
     end
-    #return students
-    students
 end
 
 def print_header
@@ -21,9 +20,9 @@ def print_header
   puts "--------------"
 end
 
-def print_students(students)
-  students.each do |s|
-    puts  "#{s[:name]} (#{s[:cohort]} cohort)"
+def print
+  @students.each do |s|
+    puts "#{s[:name]} (#{s[:cohort]} cohort)"
   end
 end
 
@@ -31,36 +30,36 @@ def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
 
-# students = input_students
-# print_header
-# print_students(students)
-# print_footer(students)
-
-def interactive_menu
-  students = []
-  loop do 
+def print_menu
     puts "1. to input students "
     puts "2. to show current students"
     puts "9. Exit"
-    selection = gets.chomp
+end
+
+def show_students
+    print_header
+    print
+    print_footer(@students)
+end
+
+def process(selection)
     case selection
     when "1"
-        students = input_students
+        input_students
     when "2"
-        print_header
-        print_students(students)
-        print_footer(students)
+        show_students
     when "9"
         exit
     else 
        puts "I didnt quite catch that"
     end
+end
 
-
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp)
   end
-
-
-
 end
 
 interactive_menu
