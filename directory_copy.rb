@@ -20,6 +20,10 @@ def input_students
     puts "To finish, please hit return twice"
     puts "What is their name?"
     name = gets.strip
+    if name.empty?
+      puts "There are no students currently on this list"
+      exit
+    end
     puts "Which cohort?"
     cohort = gets.strip
    
