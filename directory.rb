@@ -46,13 +46,35 @@ end
 
 
 def save_students
-  file = File.open("students.csv", "w")
+  filename = STDIN.gets.chomp
+  file = File.open(filename, "w")
   @students.each do |student|
       student_data = [student[:name]],[student[:cohort]]
       csv_line = student_data.join(",")
       file.puts csv_line
   end
-  puts "Your files have been saved to students.csv"
+  puts "Your files have been saved to #{filename}"
+  file.close
+end
+
+def load_message(filename)
+  puts "Loaded #{@students.count} from #{filename}"
+end
+
+def load_students(filename = gets.chomp)
+  # puts "Which file would you like to load"
+  return if filename.nil?
+  if File.exists? (filename)
+    file = File.open(filename,"r")
+    file.readlines.each do |lines|
+      name, cohort = lines.chomp.split(",")
+      @students << {name: name, cohort: cohort.to_sym}
+    end
+    load_message(filename)
+  else
+    puts "That file does not exist"
+    return
+  end
   file.close
 end
 
@@ -61,22 +83,11 @@ def try_load_students
   return if filename.nil?
   if File.exists? (filename)
     load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
   else
     puts "Sorry, the filename doesn't exist."
     exit
   end
 end
-
-def load_students(filename = "students.csv")
-  file = File.open(filename,"r")
-  file.readlines.each do |lines|
-    name, cohort = lines.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
-  end
-  file.close
-end
-
 
 def process(selection)
     case selection
@@ -85,8 +96,10 @@ def process(selection)
     when "2"
         show_students
     when "3"
+        puts "Where would you like to save the students?"
         save_students
     when "4"
+        puts "Enter the name of a file you'd like to load:"
         load_students
     when "9"
         exit
