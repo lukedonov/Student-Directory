@@ -17,7 +17,7 @@ end
 
 def print_header
   puts "The students of Villains Academy"
-  puts "--------------"
+  puts "-"* 32
 end
 
 def print
@@ -26,12 +26,12 @@ def print
   end
 end
 
-def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+def print_footer
+  puts "Overall, we have #{@students.count} great students"
 end
 
 def print_menu
-    puts "1. to input students "
+    puts "1. to input students"
     puts "2. to show current students"
     puts "3. to save students to students.csv"
     puts "4. to load students from students.csv"
@@ -41,18 +41,18 @@ end
 def show_students
     print_header
     print
-    print_footer(@students)
+    print_footer
 end
 
 
 def save_students
   file = File.open("students.csv", "w")
-
   @students.each do |student|
       student_data = [student[:name]],[student[:cohort]]
       csv_line = student_data.join(",")
       file.puts csv_line
   end
+  puts "Your files have been saved to students.csv"
   file.close
 end
 
@@ -86,7 +86,6 @@ def process(selection)
         show_students
     when "3"
         save_students
-        puts "Your files have been saved to students.csv"
     when "4"
         load_students
     when "9"
