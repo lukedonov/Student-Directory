@@ -66,21 +66,22 @@ def student_data(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
 
-def load_students(filename = gets.chomp)
-  return if filename.nil?
-  if File.exists? (filename)
-    file = File.open(filename,"r")
-    file.readlines.each do |lines|
-      name, cohort = lines.chomp.split(",")
-      student_data(name,cohort)
-    end
-    load_message(filename)
-  else
+
+def load_students(filename = STDIN.gets.chomp)   
+  if !File.exists? (filename)
     puts "That file does not exist"
     return
+  elsif File.exists? (filename)
+    File.open(filename,"r") do |file|
+        file.readlines.each do |lines|
+            name, cohort = lines.chomp.split(",")
+            student_data(name, cohort)
+        end
+        load_message(filename)
+    end
   end
-  file.close
 end
+
 
 def try_load_students
   filename = ARGV.first
