@@ -4,12 +4,12 @@ def instructions
     puts "Please input the name of students"
     puts "To finish, please hit return twice"
 end
-
+ 
 def input_students
     instructions
     name = STDIN.gets.chomp
     while !name.empty? do
-        @students << {name: name, cohort: :november}
+        student_data(name,:november)
         puts "Now we have #{@students.count} students"
         name = STDIN.gets.chomp
     end
@@ -33,8 +33,8 @@ end
 def print_menu
     puts "1. to input students"
     puts "2. to show current students"
-    puts "3. to save students to students.csv"
-    puts "4. to load students from students.csv"
+    puts "3. to save students to a file"
+    puts "4. to load students from a file"
     puts "9. Exit"
 end
 
@@ -44,31 +44,35 @@ def show_students
     print_footer
 end
 
-
-def save_students
-  filename = STDIN.gets.chomp
-  file = File.open(filename, "w")
-  @students.each do |student|
-      student_data = [student[:name]],[student[:cohort]]
-      csv_line = student_data.join(",")
-      file.puts csv_line
+def save_students(filename = STDIN.gets.chomp)
+  return if filename.nil?
+    if File.exists? (filename)
+      file = File.open(filename, "w")
+      @students.each do |student|
+        student_data = [student[:name]],[student[:cohort]]
+        csv_line = student_data.join(",")
+        file.puts csv_line
+      end
+    puts "Your files have been saved to #{filename}"
+    file.close
   end
-  puts "Your files have been saved to #{filename}"
-  file.close
 end
 
 def load_message(filename)
   puts "Loaded #{@students.count} from #{filename}"
 end
 
+def student_data(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
+end
+
 def load_students(filename = gets.chomp)
-  # puts "Which file would you like to load"
   return if filename.nil?
   if File.exists? (filename)
     file = File.open(filename,"r")
     file.readlines.each do |lines|
       name, cohort = lines.chomp.split(",")
-      @students << {name: name, cohort: cohort.to_sym}
+      student_data(name,cohort)
     end
     load_message(filename)
   else
@@ -119,3 +123,23 @@ end
 
 try_load_students
 interactive_menu
+
+
+
+
+# def load_students(filename = gets.chomp)   
+#   return if filename.nil
+#   if File.exists? (filename)
+#     File.open(filename,"r") do |file|
+#         file.readlines.each do |lines|
+#             name, cohort = lines.chomp.split(",")
+#             @students << {name: name, cohort: cohort.to_sym}
+#         end
+#       load_message(filename)
+#       end
+#   else
+#     puts "That file does not exist"
+#     return
+#     end
+#     file.close
+# end
