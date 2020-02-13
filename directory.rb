@@ -21,9 +21,7 @@ def print_header
 end
 
 def print
-  @students.each do |s|
-    puts "#{s[:name]} (#{s[:cohort]} cohort)"
-  end
+  @students.each {|s| puts "#{s[:name]} (#{s[:cohort]} cohort)"}
 end
 
 def print_footer
@@ -119,8 +117,6 @@ def interactive_menu
     process(STDIN.gets.chomp)
   end
 end
-
-
 
 try_load_students
 interactive_menu
