@@ -48,9 +48,7 @@ def save_students(filename = STDIN.gets.chomp)
     if File.exists? (filename)
       require 'csv'
       CSV.open(filename, "w") do |file|
-      @students.each do |student|
-        file << [student[:name],student[:cohort]]
-      end
+      @students.each {|student| file << [student[:name],student[:cohort]]}
     puts "Your files have been saved to #{filename}"
     end
   end
@@ -72,7 +70,7 @@ def load_students(filename = STDIN.gets.chomp)
   elsif File.exists? (filename)
     require 'csv'
     CSV.open(filename,"r") do |file|
-        file.readlines.each {|n,c| @students << {name: n, cohort: c}}
+        file.readlines.each {|n,c| student_data(n,c)}
         load_message(filename)
     end
   end
@@ -118,23 +116,3 @@ end
 
 try_load_students
 interactive_menu
-
-
-
-
-# def load_students(filename = gets.chomp)   
-#   return if filename.nil
-#   if File.exists? (filename)
-#     File.open(filename,"r") do |file|
-#         file.readlines.each do |lines|
-#             name, cohort = lines.chomp.split(",")
-#             @students << {name: name, cohort: cohort.to_sym}
-#         end
-#       load_message(filename)
-#       end
-#   else
-#     puts "That file does not exist"
-#     return
-#     end
-#     file.close
-# end
