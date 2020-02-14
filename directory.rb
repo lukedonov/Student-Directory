@@ -1,3 +1,4 @@
+
 @students = []
 
 def instructions
@@ -45,14 +46,13 @@ end
 def save_students(filename = STDIN.gets.chomp)
   return if filename.nil?
     if File.exists? (filename)
-      file = File.open(filename, "w")
+      require 'csv'
+      CSV.open(filename, "w") do |file|
       @students.each do |student|
-        student_data = [student[:name]],[student[:cohort]]
-        csv_line = student_data.join(",")
-        file.puts csv_line
+        file << [student[:name],student[:cohort]]
       end
     puts "Your files have been saved to #{filename}"
-    file.close
+    end
   end
 end
 
