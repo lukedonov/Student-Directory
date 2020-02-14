@@ -70,11 +70,9 @@ def load_students(filename = STDIN.gets.chomp)
     puts "That file does not exist"
     return
   elsif File.exists? (filename)
-    File.open(filename,"r") do |file|
-        file.readlines.each do |lines|
-            name, cohort = lines.chomp.split(",")
-            student_data(name, cohort)
-        end
+    require 'csv'
+    CSV.open(filename,"r") do |file|
+        file.readlines.each {|n,c| @students << {name: n, cohort: c}}
         load_message(filename)
     end
   end
