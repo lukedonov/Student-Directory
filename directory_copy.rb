@@ -1,131 +1,93 @@
-def input_students
-    #empty array of students to shovel input to. 
-    students = []
-    #list of possible cohorts to compare ui to. 
-    cohorts = [
-      "january",
-      "febuary",
-      "march",
-      "april",
-      "may",
-      "june",
-      "july",
-      "august",
-      "september", 
-      "october", 
-      "november", 
-      "december"]
+@students = [].sort_by { |k| k[:cohort] }
+@cohorts = [
+  "january",
+  "febuary",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september", 
+  "october", 
+  "november", 
+  "december"]
 
-    puts "Please input student information:"
-    puts "To finish, please hit return twice"
-    puts "What is their name?"
-    name = gets.strip
-    if name.empty?
-      puts "There are no students currently on this list"
-      exit
-    end
-    puts "Which cohort?"
-    cohort = gets.strip
-   
-    while !cohorts.include? cohort.downcase do 
-      puts "Please enter a valid cohort"
-      cohort = gets.strip
-    end
-
-    puts "What is their height?"
-    height = gets.strip
-    puts "What is their hobby?"
-    hobby = gets.strip
-    
-    while !name.empty? do
-        students << {
-          name: name, 
-          cohort: cohort, 
-          height: height, 
-          hobby: hobby
-      }
-        
-        puts "Now we have #{students.count} students"
-        # get another name
-        puts "Name:"
-        name = gets.strip
-        if name.empty?
-          break
-        end
-        puts "Cohort:"
-        cohort = gets.strip
-        while !cohorts.include? cohort.downcase do 
-          puts "Please enter a valid cohort"
-          cohort = gets.strip
-        end
-        puts "Height:"
-        height = gets.strip
-        puts "Hobby:"
-        hobby = gets.strip
-    end
-    return students
-    sorted = students.sort_by { |k| k[:cohort] }
-    sorted
-    # sorted = {}
-    # students.map do |stu|
-    # cohort = stu[:cohort]
-    #   if sorted[cohort] == nil
-    #     sorted[cohort] = []
-    #   end
-    #   sorted[cohort] << stu
-    # end
-    
-    # sorted.each do |key,value|
-    #   key
-    # end
+def instructions
+  puts "Please input student information:"
+  puts "To finish, please hit return twice"
 end
 
+def get_name
+  puts "Name:"
+  name = gets.strip
+end
+
+def get_cohort
+  while true do
+    puts "Cohort:"
+    cohort = gets.strip
+    if @cohorts.include? cohort.downcase
+      break
+    else 
+      puts "Please enter a valid cohort."
+    end
+  end
+  cohort
+end
+
+def get_height
+  puts "Height:"
+  height= gets.strip
+end
+
+def get_hobby
+  puts "Hobby:"
+  hobby = gets.strip
+end
+
+def get_students
+  get_name
+  get_cohort
+  get_height
+  get_hobby
+end
+
+def input_students
+  instructions
+  name = get_name
+  while !name.empty? do
+    @students << {name: name, cohort: get_cohort, height: get_height, hobby: get_hobby}
+    @students.count == 1 ? (puts "Now we have #{@students.count} student") : (puts "Now we have #{@students.count} students")
+    puts "Name:"
+    name = gets.strip
+  end
+end
 
 def print_header
-  puts "The students of Villains Academy".center(40)
-  puts "--------------".center(40)
+  puts "The students of Villains Academy".center(80)
+  puts "--------------".center(80)
 end
 
-def print_s(s)
-#   index = 0
-#   stu_arr = student.to_a
-#   while stu_arr[index]
-  
-  
-#   puts "#{stu_arr[index]} cohort"
-# end
-
-
-  # s.map do |key,value|
-  #   puts "#{key} cohort:".center(40)
-  #   puts "Name: #{value.map {|a,b| a[:name]}}".center(40)
-  #   puts "Height: #{value.map {|a,b| a[:height]}}".center(40)
-  #   puts "Hobby: #{value.map {|a,b| a[:hobby]}}".center(40)
-  #   puts ""
-  # end
-
-
-  ind = 0
-  while ind < s.size  
-    a = "#{ind+1}. #{s[ind][:name].capitalize.center(10)}"
-    b = " Height: #{s[ind][:height].center(10)}"
-    c =  " Hobby: #{s[ind][:hobby].capitalize.center(10)} (#{s[ind][:cohort].capitalize.center(0)} cohort)"    
-    puts a + b + c
-    ind += 1
+def print_students
+  @students.each do |s| 
+    name = "Name: #{s[:name].capitalize}".center(20)
+    cohort = " Cohort: #{s[:cohort].capitalize}".center(20)
+    height = " Height: #{s[:height]}".center(20)
+    hobby = "Hobby: #{s[:hobby].capitalize}".center(20)
+    puts name + cohort + height + hobby 
   end
-
 end
 
-def print_footer(names)
-  if names.count == 1 
-  puts "Overall, we have #{names.count} great student".center(40)
+def print_footer
+  if @students.count == 1 
+  puts "Overall, we have #{@students.count} great student".center(80)
   else 
-    puts "Overall, we have #{names.count} great students".center(40)
+    puts "Overall, we have #{@students.count} great students".center(80)
   end
 end
 
 students = input_students
 print_header
-print_s(students)
-print_footer(students)
-# p input_students
+print_students
+print_footer
