@@ -18,9 +18,4 @@ Brief description of what the project is
 ruby directory.rb
 ```
 
-## Running tests
-
-`gem install rspec`
-`test_command` (e.g. `rspec`)
-
 
