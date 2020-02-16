@@ -1,4 +1,3 @@
-
 @students = []
 
 def instructions
@@ -38,20 +37,19 @@ def print_menu
 end
 
 def show_students
-    print_header
-    print
-    print_footer
+  print_header
+  print
+  print_footer
 end
 
 def save_students(filename = STDIN.gets.chomp)
-  return if filename.nil?
     if File.exists? (filename)
       require 'csv'
       CSV.open(filename, "w") do |file|
-      @students.each {|student| file << [student[:name],student[:cohort]]}
-    puts "Your files have been saved to #{filename}"
+        @students.each {|student| file << [student[:name],student[:cohort]]}
+        puts "Your files have been saved to #{filename}"
+      end
     end
-  end
 end
 
 def load_message(filename)
@@ -89,22 +87,22 @@ def try_load_students
 end
 
 def process(selection)
-    case selection
-    when "1"
-        input_students
-    when "2"
-        show_students
-    when "3"
-        puts "Where would you like to save the students?"
-        save_students
-    when "4"
-        puts "Enter the name of a file you'd like to load:"
-        load_students
-    when "9"
-        exit
-    else 
-       puts "I didnt quite catch that"
-    end
+  case selection
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "3"
+    puts "Where would you like to save the students?"
+    save_students
+  when "4"
+    puts "Enter the name of a file you'd like to load:"
+    load_students
+  when "9"
+    exit
+  else 
+    puts "I didnt quite catch that"
+  end
 end
 
 def interactive_menu
