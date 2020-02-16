@@ -9,7 +9,7 @@ Brief description of what the project is
 
 ## Getting started
 
-`git `
+`git clone https://github.com/lukedonov/Student-Directory.git`
 
 
 ## How to use ##
